@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons'
-import { faEnvelope, faDollarSign, faUsers, faProjectDiagram } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faDollarSign, faUsers, faProjectDiagram, faLocationArrow } from '@fortawesome/free-solid-svg-icons'
 
 import moment from 'moment'
 import { ProjectData } from '../../features/counter/types'
@@ -36,8 +36,11 @@ export const Show = () => {
                                 <span className="mx1">|</span>
                                 {project.sponsorRelation} of {project.sponsor.name}
                             </h6>
-                            <h5 className="my1">{project.category}</h5>
-                            <h5>{moment(project.createdOn).format('MMM Do YY')}</h5>
+                            <h6 className="my1">{project.category}</h6>
+                            <h6 className="my1">{moment(project.createdOn).format('MMM Do YY')}</h6>
+                            <h6 className="my1">
+                                {project.location.city}, {project.location.country}
+                            </h6>
                         </div>
                     </div>
                     <div

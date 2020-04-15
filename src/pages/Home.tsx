@@ -33,6 +33,10 @@ export const Home: React.FC = () => {
                                 <div className="card-body">
                                     <h5 className="card-title"> {p.title}</h5>
                                     <h6 className="card-title"> {p.name}</h6>
+                                    <small style={{ fontSize: '15px' }}>
+                                        {p.location.city},{p.location.country}
+                                    </small>
+                                    <br />
                                     {p.createdOn && (
                                         <small style={{ fontSize: '15px' }}>
                                             {moment(p.createdOn).format('MMM Do YY')}
