@@ -5,13 +5,13 @@ import { TextInput } from '../../components/form/TextInput'
 import { TextAreaInput } from '../../components/form/TextAreaInput'
 import { DropdownInput } from '../../components/form/DropdownInput'
 import { FileUploadInput } from '../../components/form/FileUploadInput'
+import { ProjectData } from '../../features/counter/types'
 
 const categoryList = [
     'Agriculture, Food and Natural Resources',
     'Architecture and Construction',
     'Arts, Audio/Video Technology and Communications',
     'Business Management and Administration',
-    'Education and Training',
     'Education and Training',
     'Finance',
     'Government and Public Administration',
@@ -21,7 +21,6 @@ const categoryList = [
     'Information Technology',
     'Law, Public Safety, Corrections and Security',
     'Manufacturing',
-    'Information Technology',
     'Marketing, Sales and Service',
     'Science, Technology, Engineering and Mathematics',
     'Transportation, Distribution and Logistics',
@@ -31,7 +30,7 @@ const categoryList = [
 const sponsorList = ['Friend', 'Family']
 
 interface FormProps {
-    onSubmit(): void
+    onSubmit(data: ProjectData): void
 }
 
 export const Form = ({ onSubmit }: FormProps) => {
@@ -47,7 +46,18 @@ export const Form = ({ onSubmit }: FormProps) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        onSubmit()
+        const projectData = {
+            title,
+            shortDesc,
+            longDesc,
+            category,
+            email,
+            linkedIn,
+            twitter,
+            mainImage,
+            sponsorRelation,
+        }
+        onSubmit(projectData)
     }
 
     return (
