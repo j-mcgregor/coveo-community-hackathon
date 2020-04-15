@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
+import moment from 'moment'
 import { ProjectData } from '../../features/counter/types'
 import placeholder from '../../img/placeholder.png'
 
@@ -24,9 +25,18 @@ export const Show = () => {
         <div className="container-fluid p0">
             {project ? (
                 <>
-                    <div className="jumbotron jumbotron-fluid col-md-12">
+                    <div
+                        className="jumbotron jumbotron-fluid col-md-12 py5"
+                        style={{ background: '#f57f20', color: 'white' }}
+                    >
                         <div className="container">
-                            <h2>{project.title}</h2>
+                            <h1>{project.title}</h1>
+                            <h5>{project.category}</h5>
+                            <h6>
+                                {moment(project.createdOn).format('MMM Do YY')}
+                                <span className="mx1">|</span>
+                                {project.sponsorRelation} of {project.sponsor.name}
+                            </h6>
                         </div>
                     </div>
                     <div className="col-md-12 container py1">
@@ -80,8 +90,9 @@ export const Show = () => {
                     </div>
                 </>
             ) : (
-                <div className="col-md-6">
+                <div style={{ height: '90vh', width: '100vw' }} className="flex flex-center flex-column">
                     <h2>No project with this ID</h2>
+                    <Link to="/">Go back</Link>
                 </div>
             )}
         </div>

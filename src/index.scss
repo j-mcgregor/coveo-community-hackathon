@@ -1,0 +1,29 @@
+body {
+    margin: 0;
+    font-family: Lato, Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.px1 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar {
+    background: linear-gradient(90deg, #1d2540 4%, #02498e 94%);
+
+    .nav-link,
+    a {
+        color: white;
+    }
+}

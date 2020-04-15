@@ -1,5 +1,10 @@
+export interface SponsorType {
+    name: string
+    id: string
+}
 export interface ProjectData {
     _id?: string
+    createdOn: string
     title: string
     shortDesc: string
     longDesc: string
@@ -9,4 +14,5 @@ export interface ProjectData {
     twitter?: string
     mainImage?: string
     sponsorRelation: string
+    sponsor: SponsorType
 }

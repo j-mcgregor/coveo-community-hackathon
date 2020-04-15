@@ -48,6 +48,10 @@ export const Form = ({ onSubmit }: FormProps) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
+        const sponsor = {
+            name: 'Test McUser',
+            id: '123',
+        }
         const projectData = {
             title,
             shortDesc,
@@ -58,13 +62,16 @@ export const Form = ({ onSubmit }: FormProps) => {
             twitter,
             mainImage,
             sponsorRelation,
+            createdOn: new Date().toJSON(),
+            // CURRENT USER NAME
+            sponsor,
         }
         onSubmit(projectData)
     }
 
     return (
         <form onSubmit={handleSubmit}>
-            <h1>Contact form</h1>
+            <h1>New Project</h1>
             <div className="row">
                 <div className="col-md-6">
                     {/* TITLE */}

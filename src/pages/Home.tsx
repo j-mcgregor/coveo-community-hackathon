@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import moment from 'moment'
 import { ProjectData } from '../features/counter/types'
 
 export const Home: React.FC = () => {
@@ -15,11 +16,13 @@ export const Home: React.FC = () => {
 
     return (
         <div className="container">
-            <h1>Coveo Community App</h1>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae explicabo amet aperiam voluptate dolor hic
-                soluta quasi ad culpa nostrum nobis quod error eius qui possimus vitae sequi, totam nihil.
-            </p>
+            <div className="py1">
+                <h1>Coveo Community App</h1>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae explicabo amet aperiam voluptate dolor
+                    hic soluta quasi ad culpa nostrum nobis quod error eius qui possimus vitae sequi, totam nihil.
+                </p>
+            </div>
             {projects.length ? (
                 <>
                     <h1>Current projects</h1>
@@ -29,11 +32,22 @@ export const Home: React.FC = () => {
                                 {p.mainImage && <img src={p.mainImage} className="card-img-top" alt="main" />}{' '}
                                 <div className="card-body">
                                     <h5 className="card-title"> {p.title}</h5>
+                                    {p.createdOn && (
+                                        <small style={{ fontSize: '15px' }}>
+                                            {moment(p.createdOn).format('MMM Do YY')}
+                                        </small>
+                                    )}
+                                    <br />
+                                    <small style={{ fontSize: '12px' }}>
+                                        Sponsored by <a href={`https://coveo.com/${p.sponsor.id}`}>{p.sponsor.name}</a>
+                                    </small>
+                                    <hr />
                                     <small className="card-text"> {p.shortDesc}</small>
                                     {p._id && (
                                         <p>
-                                            {' '}
-                                            <Link to={`/project/${p._id}`}>See more</Link>{' '}
+                                            <small>
+                                                <Link to={`/project/${p._id}`}>See more</Link>{' '}
+                                            </small>
                                         </p>
                                     )}
                                 </div>
