@@ -2,19 +2,26 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 
 export const Navbar: React.FC = () => (
-  <nav>
-    <div className="nav-wrapper cyan darken-1 px1">
-      <NavLink to="/" className="brand-logo">
-        Redux + TypeScript
-      </NavLink>
-      <ul className="right hide-on-med-and-down">
-        <li cy-data="home-nav-link">
-          <NavLink to="/">Home</NavLink>
-        </li>
-        <li>
-          <NavLink to="/about">About</NavLink>
-        </li>
-      </ul>
-    </div>
-  </nav>
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="collapse navbar-collapse">
+            <NavLink to="/">Coveo Community</NavLink>
+            <ul className="navbar-nav">
+                <li className="nav-item">
+                    <NavLink to="/" className="nav-link">
+                        Home
+                    </NavLink>
+                </li>
+                <li className="nav-item">
+                    <NavLink to="/about" className="nav-link">
+                        About
+                    </NavLink>
+                </li>
+                <li className="nav-item">
+                    <NavLink to="/project/new" className="nav-link">
+                        Create Project
+                    </NavLink>
+                </li>
+            </ul>
+        </div>
+    </nav>
 )

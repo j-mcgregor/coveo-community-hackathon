@@ -1,0 +1,31 @@
+@for $i from 0 through 10 {
+    .b#{$i} {
+        border: #{$i} solid black;
+    }
+
+    .br#{$i} {
+        border-right: #{$i} solid black;
+    }
+
+    .bl#{$i} {
+        border-left: #{$i} solid black;
+    }
+
+    .bt#{$i} {
+        border-top: #{$i} solid black;
+    }
+
+    .bb#{$i} {
+        border-bottom: #{$i} solid black;
+    }
+
+    .by#{$i} {
+        border-top: #{$i} solid black;
+        border-bottom: #{$i} solid black;
+    }
+
+    .bx#{$i} {
+        border-left: #{$i} solid black;
+        border-right: #{$i} solid black;
+    }
+}
