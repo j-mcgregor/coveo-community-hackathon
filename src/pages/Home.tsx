@@ -32,6 +32,7 @@ export const Home: React.FC = () => {
                                 {p.mainImage && <img src={p.mainImage} className="card-img-top" alt="main" />}{' '}
                                 <div className="card-body">
                                     <h5 className="card-title"> {p.title}</h5>
+                                    <h6 className="card-title"> {p.name}</h6>
                                     {p.createdOn && (
                                         <small style={{ fontSize: '15px' }}>
                                             {moment(p.createdOn).format('MMM Do YY')}
@@ -56,7 +57,12 @@ export const Home: React.FC = () => {
                     </div>
                 </>
             ) : (
-                <h1>No projects</h1>
+                <div className="flex flex-center flex-column" style={{ height: '400px' }}>
+                    <h4>No projects.</h4>
+                    <p>
+                        Please <Link to="/project/new">create one</Link>
+                    </p>
+                </div>
             )}
         </div>
     )

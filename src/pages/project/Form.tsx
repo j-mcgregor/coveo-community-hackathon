@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, SetStateAction } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { TextInput } from '../../components/form/TextInput'
 import { TextAreaInput } from '../../components/form/TextAreaInput'
 import { DropdownInput } from '../../components/form/DropdownInput'
 import { FileUploadInput } from '../../components/form/FileUploadInput'
-import { ProjectData } from '../../features/counter/types'
+import { ProjectData, GoalType, LocationType } from '../../features/counter/types'
+
+import countriesJSON from '../../data/countries.json'
 
 const categoryList = [
     'Agriculture, Food and Natural Resources',
@@ -35,7 +37,9 @@ interface FormProps {
 
 export const Form = ({ onSubmit }: FormProps) => {
     const [title, setTitle] = useState(`Project: ${Math.random().toString().split('.')[1]}`)
-    const [shortDesc, setShortDesc] = useState('t vero eos et accusam et justo duo dolores et ea rebum')
+    const [name, setName] = useState('Nanny McPhee')
+
+    const [shortDesc, setShortDesc] = useState('Vero eos et accusam et justo duo dolores et ea rebum')
     const [longDesc, setLongDesc] = useState(
         'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
     )
@@ -46,17 +50,48 @@ export const Form = ({ onSubmit }: FormProps) => {
     const [mainImage, setMainImage] = useState('')
     const [sponsorRelation, setSponsorRelation] = useState('Family')
 
+    const [city, setCity] = useState('')
+    const [cities, setCities] = useState<Array<string>>([])
+
+    const [country, setCountry] = useState('')
+    const [countries, setCountries] = useState<Array<string>>([])
+
+    useEffect(() => {
+        const countryList: string[] = Object.keys(countriesJSON)
+        setCountries(countryList)
+    }, [])
+
+    useEffect(() => {
+        const cityList = Object.entries(countriesJSON)
+        const countryCities = cityList.find((cl: any) => cl[0] === country)
+        if (countryCities && countryCities.length) {
+            setCities(countryCities[1])
+        } else {
+            setCities(countriesJSON.Afghanistan)
+        }
+    }, [country])
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         const sponsor = {
             name: 'Test McUser',
             id: '123',
         }
+        const goal: GoalType = {
+            target: 0,
+            raised: 0,
+        }
+        const location: LocationType = {
+            city,
+            country,
+        }
         const projectData = {
             title,
+            name,
             shortDesc,
             longDesc,
             category,
+            location,
             email,
             linkedIn,
             twitter,
@@ -65,6 +100,8 @@ export const Form = ({ onSubmit }: FormProps) => {
             createdOn: new Date().toJSON(),
             // CURRENT USER NAME
             sponsor,
+            coaches: [],
+            goal,
         }
         onSubmit(projectData)
     }
@@ -109,8 +146,28 @@ export const Form = ({ onSubmit }: FormProps) => {
                         value={sponsorRelation}
                         onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSponsorRelation(e.target.value)}
                     />
+                    {/* LOCATION */}
+                    <DropdownInput
+                        label="Country"
+                        options={countries}
+                        value={country}
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setCountry(e.target.value)}
+                    />
+                    <DropdownInput
+                        label="City"
+                        options={cities}
+                        value={city}
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setCity(e.target.value)}
+                    />
                 </div>
                 <div className="col-md-6">
+                    {/* email */}
+                    <TextInput
+                        label="Project owner"
+                        value={name}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+                        placeholder="Project owner name"
+                    />
                     {/* email */}
                     <TextInput
                         label="Email"
@@ -141,7 +198,6 @@ export const Form = ({ onSubmit }: FormProps) => {
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setMainImage(e.target.value)}
                         label="Main image"
                     />
-                    {/* LOCATION */}
                 </div>
             </div>
 
