@@ -1,4 +1,5 @@
 export interface ProjectData {
+    _id?: string
     title: string
     shortDesc: string
     longDesc: string
