@@ -34,12 +34,8 @@ interface FormProps {
 }
 
 export const Form = ({ onSubmit }: FormProps) => {
-    const [title, setTitle] = useState(
-        `Project: ${Math.random().toString().split('.')[1]}`
-    )
-    const [shortDesc, setShortDesc] = useState(
-        't vero eos et accusam et justo duo dolores et ea rebum'
-    )
+    const [title, setTitle] = useState(`Project: ${Math.random().toString().split('.')[1]}`)
+    const [shortDesc, setShortDesc] = useState('t vero eos et accusam et justo duo dolores et ea rebum')
     const [longDesc, setLongDesc] = useState(
         'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
     )
@@ -75,27 +71,21 @@ export const Form = ({ onSubmit }: FormProps) => {
                     <TextInput
                         label="Title"
                         value={title}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                            setTitle(e.target.value)
-                        }
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
                         placeholder="What's the name of your project?"
                     />
                     {/* SHORT DESCRIPTION */}
                     <TextAreaInput
                         label="Short description of your project"
                         value={shortDesc}
-                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                            setShortDesc(e.target.value)
-                        }
+                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setShortDesc(e.target.value)}
                         placeholder="A short description to rouse interest"
                     />
                     {/* LONG DESCRIPTION */}
                     <TextAreaInput
                         label="Longer description of your project"
                         value={longDesc}
-                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                            setLongDesc(e.target.value)
-                        }
+                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setLongDesc(e.target.value)}
                         placeholder="A longer description of your project to grab attention"
                     />
                     {/* CATEGORIES */}
@@ -103,18 +93,14 @@ export const Form = ({ onSubmit }: FormProps) => {
                         label="Category"
                         options={categoryList}
                         value={category}
-                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                            setCategory(e.target.value)
-                        }
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setCategory(e.target.value)}
                     />{' '}
                     {/* SPONSOR RELATION */}
                     <DropdownInput
                         label="Sponsor Relation"
                         options={sponsorList}
                         value={sponsorRelation}
-                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                            setSponsorRelation(e.target.value)
-                        }
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSponsorRelation(e.target.value)}
                     />
                 </div>
                 <div className="col-md-6">
@@ -123,47 +109,29 @@ export const Form = ({ onSubmit }: FormProps) => {
                         label="Email"
                         type="email"
                         value={email}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                            setEmail(e.target.value)
-                        }
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                         placeholder="Email address"
                     />
                     {/* linkedin */}
                     <TextInput
                         label="LinkedIn URL"
                         value={linkedIn}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                            setLinkedIn(e.target.value)
-                        }
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLinkedIn(e.target.value)}
                         placeholder="LinkedIn URL"
-                        logo={
-                            <FontAwesomeIcon
-                                className="mr-2"
-                                icon={faLinkedin}
-                            />
-                        }
+                        logo={<FontAwesomeIcon className="mr-2" icon={faLinkedin} />}
                     />
                     {/* linkedin */}
                     <TextInput
                         label="Twitter URL"
                         value={twitter}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                            setTwitter(e.target.value)
-                        }
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTwitter(e.target.value)}
                         placeholder="Twitter URL"
-                        logo={
-                            <FontAwesomeIcon
-                                className="mr-2"
-                                icon={faTwitter}
-                            />
-                        }
+                        logo={<FontAwesomeIcon className="mr-2" icon={faTwitter} />}
                     />
                     {/* IMAGE */}
                     <FileUploadInput
                         value={mainImage}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                            setMainImage(e.target.value)
-                        }
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setMainImage(e.target.value)}
                         label="Main image"
                     />
                     {/* LOCATION */}

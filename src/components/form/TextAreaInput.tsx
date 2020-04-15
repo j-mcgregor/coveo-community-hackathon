@@ -8,21 +8,11 @@ interface TextAreaInputProps {
     onChange(e: ChangeEvent<HTMLTextAreaElement>): void
 }
 
-export const TextAreaInput = ({
-    label,
-    value,
-    placeholder = '',
-    onChange,
-}: TextAreaInputProps) => {
+export const TextAreaInput = ({ label, value, placeholder = '', onChange }: TextAreaInputProps) => {
     return (
         <div className="form-group">
             {label && <label>{label}</label>}
-            <textarea
-                className="form-control"
-                value={value}
-                onChange={onChange}
-                placeholder={placeholder}
-            />
+            <textarea className="form-control" value={value} onChange={onChange} placeholder={placeholder} />
         </div>
     )
 }

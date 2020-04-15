@@ -9,14 +9,7 @@ interface TextInputProps {
     logo?: React.ReactElement
 }
 
-export const TextInput = ({
-    label,
-    type = 'text',
-    value,
-    placeholder = '',
-    onChange,
-    logo,
-}: TextInputProps) => {
+export const TextInput = ({ label, type = 'text', value, placeholder = '', onChange, logo }: TextInputProps) => {
     return (
         <div className="form-group">
             {label && <label>{label}</label>}

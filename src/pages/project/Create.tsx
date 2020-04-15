@@ -15,10 +15,7 @@ export const Create = () => {
         if (projects) {
             const parsedProjects = JSON.parse(projects)
             parsedProjects.push(newProject)
-            window.localStorage.setItem(
-                'projects',
-                JSON.stringify(parsedProjects)
-            )
+            window.localStorage.setItem('projects', JSON.stringify(parsedProjects))
         } else {
             const projectList = JSON.stringify([newProject])
             window.localStorage.setItem('projects', projectList)

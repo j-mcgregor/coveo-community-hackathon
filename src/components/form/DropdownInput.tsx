@@ -7,20 +7,13 @@ interface DropDownInputProps {
     onChange(e: ChangeEvent<HTMLSelectElement>): void
 }
 
-export const DropdownInput = ({
-    label,
-    options,
-    onChange,
-    value,
-}: DropDownInputProps) => {
+export const DropdownInput = ({ label, options, onChange, value }: DropDownInputProps) => {
     return (
         <div className="form-group">
             {label && <label>{label}</label>}
             <select className="form-control" onChange={onChange} value={value}>
                 {options && options.length
-                    ? options.map((option: string) => (
-                          <option key={option}>{option}</option>
-                      ))
+                    ? options.map((option: string) => <option key={option}>{option}</option>)
                     : null}
             </select>
         </div>

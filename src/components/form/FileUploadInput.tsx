@@ -7,12 +7,7 @@ interface FileUploadInputProps {
     onChange(e: React.ChangeEvent<HTMLInputElement>): void
 }
 
-export const FileUploadInput = ({
-    label,
-    value,
-    placeholder = '',
-    onChange,
-}: FileUploadInputProps) => {
+export const FileUploadInput = ({ label, value, placeholder = '', onChange }: FileUploadInputProps) => {
     return (
         <div className="form-group">
             {label && <label>{label}</label>}
