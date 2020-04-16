@@ -111,7 +111,7 @@ export const Show = () => {
             // UPDATE PROJECT
             const newCoach = {
                 id: '123',
-                name: 'Mr Coveo',
+                name: 'Jack McGregor',
                 skill: volunteerSkill,
             }
 
@@ -273,7 +273,7 @@ export const Show = () => {
                             <div className="col-md-6 text-justify p1">
                                 <p>{project.shortDesc}</p>
                                 <small>{project.longDesc}</small>
-                                <ul className="list-group list-group-flush">
+                                <ul className="list-group list-group-flush pt2">
                                     {project.email && (
                                         <li className="list-group-item pl0">
                                             <small>
@@ -306,7 +306,7 @@ export const Show = () => {
                                     )}
                                 </ul>
                             </div>
-                            <div className="col-md-6 text-justify py1">
+                            <div className="col-md-5 offset-md-1 text-justify py1">
                                 <p>Coach list</p>
                                 {project.coaches && project.coaches.length ? (
                                     project.coaches.map((p: any) => (
