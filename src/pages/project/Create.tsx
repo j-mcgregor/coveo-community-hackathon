@@ -3,7 +3,7 @@ import { v1 as uuidv1 } from 'uuid'
 import { Form } from './Form'
 import { ProjectData } from '../../features/counter/types'
 
-export const Create = () => {
+export const Create = (props: any) => {
     const handleSubmit = (data: ProjectData) => {
         const newProject = {
             ...data,
@@ -20,6 +20,7 @@ export const Create = () => {
             const projectList = JSON.stringify([newProject])
             window.localStorage.setItem('projects', projectList)
         }
+        props.history.push('/')
     }
 
     return (

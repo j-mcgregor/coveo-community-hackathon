@@ -59,6 +59,8 @@ export const Form = ({ onSubmit }: FormProps) => {
     useEffect(() => {
         const countryList: string[] = Object.keys(countriesJSON)
         setCountries(countryList)
+        setCountry('Afghanistan')
+        setCity(countriesJSON.Afghanistan[0])
     }, [])
 
     useEffect(() => {
@@ -78,7 +80,7 @@ export const Form = ({ onSubmit }: FormProps) => {
             id: '123',
         }
         const goal: GoalType = {
-            target: 0,
+            target: Math.floor(Math.random() * 1000),
             raised: 0,
         }
         const location: LocationType = {

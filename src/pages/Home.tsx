@@ -17,15 +17,30 @@ export const Home: React.FC = () => {
     return (
         <div className="container">
             <div className="py1">
-                <h1>Coveo Community App</h1>
+                <h1 style={{ color: '#f57f20' }}>Coveo Community App</h1>
                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae explicabo amet aperiam voluptate dolor
-                    hic soluta quasi ad culpa nostrum nobis quod error eius qui possimus vitae sequi, totam nihil.
+                    Welcome to Coveo Community, a proof-of-concept app that aims to promote funding, skill-sharing and
+                    coaching to friends and family of Coveo employees who have been affected by the devastating Covid19
+                    outbreak
+                </p>
+                <p>
+                    This services hopes to provide training and support for loved ones who have lost their jobs or had
+                    their careers shattered, so that when things start returning to a sense of normalcy they can hit the
+                    ground running
+                </p>
+                <p>
+                    To use this service, an account must be created by a Coveo employee who then creates a Project page
+                    for their nominee. The page should outline that persons background and skillset, their objectives
+                    for the future and any goals they may have, plus any relevant social media
+                </p>
+                <p>
+                    Following this, it's up to other Coveo employees to donate, promote and offer support through
+                    volunteer coaching.
                 </p>
             </div>
             {projects.length ? (
                 <>
-                    <h1>Current projects</h1>
+                    <h2 style={{ color: '#f57f20' }}>Current projects</h2>
                     <div className="row flex space-between flex-wrap">
                         {projects.map((p: ProjectData) => (
                             <div className="card my2" key={p.title} style={{ width: '30%' }}>
