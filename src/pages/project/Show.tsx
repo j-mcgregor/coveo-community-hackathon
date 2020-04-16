@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -328,7 +330,16 @@ export const Show = () => {
                                     ))
                                 ) : (
                                     <div style={{ height: '100px' }} className="">
-                                        <h2>No project with this ID</h2>
+                                        <small>
+                                            No coaches yet.{' '}
+                                            <span
+                                                onClick={handleShowVolunteerModal}
+                                                style={{ color: '#f57f20', cursor: 'pointer' }}
+                                            >
+                                                {' '}
+                                                Why not volunteer?
+                                            </span>
+                                        </small>
                                     </div>
                                 )}
                             </div>
