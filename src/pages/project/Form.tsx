@@ -43,19 +43,17 @@ const ReqSkills = ({ reqSkillsList, handleRemoveSkill }: ReqSkillsProps) => {
 }
 
 export const Form = ({ onSubmit }: FormProps) => {
-    const [title, setTitle] = useState(`Project: ${Math.random().toString().split('.')[1]}`)
-    const [name, setName] = useState('Nanny McPhee')
+    const [title, setTitle] = useState('')
+    const [name, setName] = useState('')
 
-    const [shortDesc, setShortDesc] = useState('Vero eos et accusam et justo duo dolores et ea rebum')
-    const [longDesc, setLongDesc] = useState(
-        'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
-    )
-    const [category, setCategory] = useState('Finance')
-    const [email, setEmail] = useState('test@test.com')
+    const [shortDesc, setShortDesc] = useState('')
+    const [longDesc, setLongDesc] = useState('')
+    const [category, setCategory] = useState('')
+    const [email, setEmail] = useState('')
     const [linkedIn, setLinkedIn] = useState('http://linkedin.com')
     const [twitter, setTwitter] = useState('http://twitter.com')
     const [mainImage, setMainImage] = useState('')
-    const [sponsorRelation, setSponsorRelation] = useState('Family')
+    const [sponsorRelation, setSponsorRelation] = useState('')
 
     const [city, setCity] = useState('')
     const [cities, setCities] = useState<Array<string>>([])
@@ -77,8 +75,6 @@ export const Form = ({ onSubmit }: FormProps) => {
     useEffect(() => {
         const countryList: string[] = Object.keys(countriesJSON)
         setCountries(countryList)
-        setCountry('Afghanistan')
-        setCity(countriesJSON.Afghanistan[0])
     }, [])
 
     useEffect(() => {
