@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom'
 import moment from 'moment'
 import { ProjectData } from '../features/counter/types'
 
+import placeholder from '../img/placeholder.png'
+import seedData from '../data/seed.json'
+
 export const Home: React.FC = () => {
     const [projects, setProjects] = useState([])
 
@@ -11,6 +14,10 @@ export const Home: React.FC = () => {
 
         if (projectsList) {
             setProjects(JSON.parse(projectsList))
+        } else {
+            const seedJSON = JSON.stringify(seedData)
+            window.localStorage.setItem('projects', seedJSON)
+            window.location.reload()
         }
     }, [])
 
@@ -44,7 +51,11 @@ export const Home: React.FC = () => {
                     <div className="row flex space-between flex-wrap">
                         {projects.map((p: ProjectData) => (
                             <div className="card my2" key={p.title} style={{ width: '30%' }}>
-                                {p.mainImage && <img src={p.mainImage} className="card-img-top" alt="main" />}{' '}
+                                {p.mainImage ? (
+                                    <img src={p.mainImage} alt="main" className="card-img-top" />
+                                ) : (
+                                    <img src={placeholder} alt="main" className="card-img-top" />
+                                )}
                                 <div className="card-body">
                                     <h5 className="card-title"> {p.title}</h5>
                                     <h6 className="card-title"> {p.name}</h6>

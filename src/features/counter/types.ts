@@ -33,5 +33,6 @@ export interface ProjectData {
     sponsorRelation: string
     sponsor: SponsorType
     coaches?: Array<CoachType>
+    skillsWanted?: Array<string>
     goal?: GoalType
 }

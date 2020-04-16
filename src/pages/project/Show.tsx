@@ -6,9 +6,12 @@ import { faEnvelope, faDollarSign, faUsers, faProjectDiagram, faLocationArrow } 
 import { Modal } from 'react-bootstrap'
 
 import moment from 'moment'
-import { ProjectData } from '../../features/counter/types'
+import { ProjectData, CoachType } from '../../features/counter/types'
 import placeholder from '../../img/placeholder.png'
+import personPlaceholder from '../../img/placeholder-person.png'
 import { NumberInput } from '../../components/form/NumberInput'
+import { DropdownInput } from '../../components/form/DropdownInput'
+import { TextAreaInput } from '../../components/form/TextAreaInput'
 
 interface ActionModalProps {
     show: boolean
@@ -42,11 +45,19 @@ const ActionModal: React.FC<ActionModalProps> = ({
 )
 
 export const Show = () => {
-    const [show, setShow] = useState(false)
-    const handleClose = () => setShow(false)
-    const handleShow = () => setShow(true)
-
+    // DONATE
+    const [showDonateModal, setShowDonateModal] = useState(false)
+    const handleCloseDonateModal = () => setShowDonateModal(false)
+    const handleShowDonateModal = () => setShowDonateModal(true)
     const [donationAmount, setDonationAmount] = useState('')
+
+    // VOLUNTEER
+    const [showVolunteerModal, setShowVolunteerModal] = useState(false)
+    const [volunteerSkill, setVolunteerSkill] = useState('')
+    const [volunteerExtraInfo, setVolunteerExtraInfo] = useState('')
+
+    const handleCloseVolunteerModal = () => setShowVolunteerModal(false)
+    const handleShowVolunteerModal = () => setShowVolunteerModal(true)
 
     const [project, setProject] = useState<ProjectData>()
     const { id } = useParams()
@@ -57,6 +68,9 @@ export const Show = () => {
         if (projectsList) {
             const filteredProject = JSON.parse(projectsList).find((p: ProjectData) => p._id === id)
             setProject(filteredProject)
+            if (project && project.skillsWanted) {
+                setVolunteerSkill(project.skillsWanted[0])
+            }
         }
     }, [])
 
@@ -92,6 +106,41 @@ export const Show = () => {
         }
     }
 
+    const handleVolunteerAction = () => {
+        if (project && project.coaches) {
+            // UPDATE PROJECT
+            const newCoach = {
+                id: '123',
+                name: 'Mr Coveo',
+                skill: volunteerSkill,
+            }
+
+            const updatedProject: ProjectData = {
+                ...project,
+                coaches: [...new Set([...project.coaches, newCoach])],
+            }
+
+            // UPDATE LIST
+            const projects = window.localStorage.getItem('projects')
+
+            if (projects) {
+                // get all projects
+                const parsedProjects = JSON.parse(projects)
+                // find and replace
+                const newProjectArray = parsedProjects.map((p: ProjectData) => {
+                    if (p._id === project._id) {
+                        return updatedProject
+                    }
+                    return p
+                })
+
+                // save
+                window.localStorage.setItem('projects', JSON.stringify(newProjectArray))
+                window.location.reload()
+            }
+        }
+    }
+
     return (
         <div className="container-fluid p0">
             {project ? (
@@ -105,9 +154,26 @@ export const Show = () => {
                             <h6>
                                 {project.name}
                                 <span className="mx1">|</span>
-                                {project.sponsorRelation} of {project.sponsor.name}
+                                {project.sponsorRelation} of{' '}
+                                <a
+                                    href={`http://coveo.com/employee/${project.sponsor.id}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{ color: 'white', textDecoration: 'underline' }}
+                                >
+                                    {project.sponsor.name}
+                                </a>
                             </h6>
                             <h6 className="my1">{project.category}</h6>
+                            <h6>
+                                {project.skillsWanted &&
+                                    project.skillsWanted.map((s: any, i: number) => (
+                                        <span className="my1">
+                                            {s}
+                                            {project.skillsWanted && i !== project.skillsWanted.length - 1 ? ', ' : ''}
+                                        </span>
+                                    ))}
+                            </h6>
                             <h6 className="my1">{moment(project.createdOn).format('MMM Do YY')}</h6>
                             <h6 className="my1">
                                 {project.location.city}, {project.location.country}
@@ -127,18 +193,18 @@ export const Show = () => {
                                                 <FontAwesomeIcon size="2x" className="mr-2" icon={faDollarSign} />
                                             </h3>
                                             <h4>
-                                                ${project.goal.raised} / {project.goal.target} raised
+                                                $ {project.goal.raised} / {project.goal.target} raised
                                             </h4>
                                             <button
                                                 type="button"
                                                 className="btn btn-lg btn-banner"
-                                                onClick={handleShow}
+                                                onClick={handleShowDonateModal}
                                             >
                                                 Donate
                                             </button>
                                             <ActionModal
-                                                show={show}
-                                                handleClose={handleClose}
+                                                show={showDonateModal}
+                                                handleClose={handleCloseDonateModal}
                                                 title={`Donate to ${project.name}'s cause?`}
                                                 confirmAction={handleDonateAction}
                                             >
@@ -165,19 +231,40 @@ export const Show = () => {
                                             <button
                                                 type="button"
                                                 className="btn btn-lg btn-banner"
-                                                onClick={handleShow}
+                                                onClick={handleShowVolunteerModal}
                                             >
                                                 Volunteer
                                             </button>
+                                            <ActionModal
+                                                show={showVolunteerModal}
+                                                handleClose={handleCloseVolunteerModal}
+                                                title={`Volunteer for ${project.name}'s cause?`}
+                                                confirmAction={handleVolunteerAction}
+                                            >
+                                                <>
+                                                    <p>{`Would you like to volunteer for ${project.name}? If so, please select which skill they looking for help with that you will be able to coach them on, with any extra information you think might be necessary`}</p>
+                                                    {project.skillsWanted && project.skillsWanted.length && (
+                                                        <DropdownInput
+                                                            value={volunteerSkill}
+                                                            options={project.skillsWanted}
+                                                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                                                                setVolunteerSkill(e.target.value)
+                                                            }
+                                                        />
+                                                    )}
+                                                    <TextAreaInput
+                                                        label="Further information"
+                                                        value={volunteerExtraInfo}
+                                                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                                                            setVolunteerExtraInfo(e.target.value)
+                                                        }
+                                                        placeholder="any other information"
+                                                    />
+                                                </>
+                                            </ActionModal>
                                         </>
                                     )}
                                 </div>
-                                {/* <div className="col-md-4">
-                                    <h3>
-                                        <FontAwesomeIcon size="2x" className="mr-2" icon={faProjectDiagram} />
-                                    </h3>
-                                    <h4>3 projects completed</h4>
-                                </div> */}
                             </div>
                         </div>
                     </div>
@@ -186,18 +273,9 @@ export const Show = () => {
                             <div className="col-md-6 text-justify p1">
                                 <p>{project.shortDesc}</p>
                                 <small>{project.longDesc}</small>
-                            </div>
-                            <div className="col-md-6 text-justify py1">
-                                <div className="img-container text-center">
-                                    {project.mainImage ? (
-                                        <img src={project.mainImage} alt="main" className="img-thumbnail" />
-                                    ) : (
-                                        <img src={placeholder} alt="main" className="img-thumbnail" />
-                                    )}
-                                </div>
                                 <ul className="list-group list-group-flush">
                                     {project.email && (
-                                        <li className="list-group-item">
+                                        <li className="list-group-item pl0">
                                             <small>
                                                 <a href={`mailto:${project.email}`}>
                                                     <FontAwesomeIcon className="mr-2" icon={faEnvelope} />
@@ -207,7 +285,7 @@ export const Show = () => {
                                         </li>
                                     )}
                                     {project.linkedIn && (
-                                        <li className="list-group-item">
+                                        <li className="list-group-item pl0">
                                             <small>
                                                 <a href={project.linkedIn} target="_blank" rel="noopener noreferrer">
                                                     <FontAwesomeIcon className="mr-2" icon={faLinkedin} />
@@ -217,7 +295,7 @@ export const Show = () => {
                                         </li>
                                     )}
                                     {project.twitter && (
-                                        <li className="list-group-item">
+                                        <li className="list-group-item pl0">
                                             <small>
                                                 <a href={project.twitter} target="_blank" rel="noopener noreferrer">
                                                     <FontAwesomeIcon className="mr-2" icon={faTwitter} />
@@ -227,6 +305,43 @@ export const Show = () => {
                                         </li>
                                     )}
                                 </ul>
+                            </div>
+                            <div className="col-md-6 text-justify py1">
+                                <p>Coach list</p>
+                                {project.coaches && project.coaches.length ? (
+                                    project.coaches.map((p: any) => (
+                                        <div className="media flex flex-center my1">
+                                            <img
+                                                src={personPlaceholder}
+                                                alt="person-placeholder"
+                                                className="img-rounded mr1"
+                                                width="40"
+                                                style={{ borderRadius: '50%' }}
+                                            />
+                                            <div className="media-body">
+                                                <h6>{p.name}</h6>
+                                                {p.skill && (
+                                                    <small className="text-muted">Coaching with: {p.skill}</small>
+                                                )}
+                                            </div>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <div style={{ height: '100px' }} className="">
+                                        <h2>No project with this ID</h2>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                        <div className="row py3">
+                            <div className="col-md-12">
+                                <div className="img-container text-center">
+                                    {project.mainImage ? (
+                                        <img src={project.mainImage} alt="main" className="img-thumbnail" />
+                                    ) : (
+                                        <img src={placeholder} alt="main" className="img-thumbnail" />
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>
